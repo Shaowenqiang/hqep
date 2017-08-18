@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hqep.dao.ansDao">
+	<resultMap id="BaseResultMap" type="com.hqep.model.inansModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="QID" jdbcType="VARCHAR" property="qid" />
+		<result column="ANSWERID" jdbcType="VARCHAR" property="answerid" />
+		<result column="ANSWERCONTENT" jdbcType="VARCHAR" property="answercontent" />
+		<result column="USERID" jdbcType="VARCHAR" property="userid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID
+		,
+		QID
+		,
+		ANSWERID
+		,
+		ANSWERCONTENT
+		,
+		USERID
+		,
+		TYPE
+  </sql>
+   <insert id="save" parameterType="com.hqep.model.inansModel">
+    insert into ASK_ANSWER (
+    	<include refid="Base_Column_List"></include> 
+    ) 
+    values (
+			sys_guid(),
+			#{qid,jdbcType=VARCHAR},
+			#{answerid,jdbcType=VARCHAR},
+			#{answercontent,jdbcType=VARCHAR},
+			#{userid,jdbcType=VARCHAR},
+			#{type,jdbcType=VARCHAR}
+    )
+  </insert>
+  <select id="existans" parameterType="com.hqep.model.inansModel" resultType="Integer">
+       select count(*) from ASK_ANSWER
+         where 
+             QID=#{qid,jdbcType=VARCHAR}
+			and USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <update id="update" parameterType="com.hqep.model.inansModel">
+       update ASK_ANSWER    <trim prefix="set" prefixOverrides=",">
+			<if test="answerid !=null ">
+				ANSWERID = #{answerid,jdbcType=VARCHAR}
+			</if>
+			<if test="answercontent != null ">
+				, ANSWERCONTENT = #{answercontent,jdbcType=CLOB}
+			</if>
+		</trim>
+		where 
+             QID=#{qid,jdbcType=VARCHAR}
+			and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

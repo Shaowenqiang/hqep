@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Minimal and Clean Sign up / Login and Forgot Form by FreeHTML5.co</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	
+
+  
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="../css/style.css">
+   
+	<!-- Modernizr JS -->
+	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../js/respond.min.js"></script>
+	<![endif]-->
+     <link rel="stylesheet" href="../css/tcstyle.css" media="screen" type="text/css" />
+	</head>
+	<body class="style-2">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					
+
+					<!-- Start Sign In Form -->
+					<form action="/hqep/login/in" method="post" class="fh5co-form animate-box" data-animate-effect="fadeInLeft" onsubmit = "return check();">
+						<h2>Sign In</h2>
+						<div class="form-group">
+							<label for="companyname" class="sr-only">科研机构分类</label>
+							<select id="kind" class="form-control" name="kind" onchange="selectM(this)">
+							<option value="">科研机构分类</option>
+							<option value="高校">高校</option>
+							<option value="科研院所">科研院所</option>
+							<option value="企业">企业</option>
+							
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="username" class="sr-only">子类</label>
+							<select class="form-control" name="subkind" id="subkind">
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="sex" class="sr-only">性别</label>
+							<select id="sex" class="form-control" name="sex">
+							<option value="">性别</option>
+							<option value="男">男</option>
+							<option value="女">女</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="xl" class="sr-only">学历</label>
+							<select id="xl" class="form-control" name="xl">
+							<option value="">学历</option>
+							<option value="博士">博士</option>
+							<option value="硕士">硕士</option>
+							<option value="本科">本科</option>
+							<option value="本科以下">本科以下</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="zc" class="sr-only">职称</label>
+							<select id="zc" class="form-control" name="zc">
+							<option value="">职称</option>
+							<option value="高级">高级</option>
+							<option value="中级">中级</option>
+							<option value="初级">初级</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="ssdy" class="sr-only">所属地域</label>
+							<select id="ssdy" class="form-control" name="ssdy">
+							<option value="">所属地域</option>
+							<option value="高级">东北三省</option>
+							<option value="中级">一二三线城市</option>
+							<option value="初级">初级</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="dept" class="sr-only">单位名称</label>
+							<input type="text" class="form-control" id="dept" name="dept" placeholder="单位名称" autocomplete="off" value=""/>
+						</div>
+						<div class="form-group">
+							<label for="duty" class="sr-only">社会职务</label>
+							<input type="text" class="form-control" id="duty" name="duty" placeholder="社会职务" autocomplete="off" value=""/>
+						</div>
+						<div class="form-group">
+							<label for="username" class="sr-only">姓名</label>
+							<input type="text" class="form-control" id="name" name="name" placeholder="姓名" autocomplete="off" value=""/>
+						</div>
+						<div class="form-group">
+							<label for="age" class="sr-only">年龄</label>
+							<input type="number" class="form-control" id="age" name="age" placeholder="年龄" autocomplete="off" value=""/>
+						</div>
+						<div class="form-group">
+							<p>展示数据?  <a class="md-trigger"  data-modal="modal-13" style="cursor: pointer;">press here and input right pwd !</a></p>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Sign In" class="btn btn-primary">
+						</div>
+					</form>
+					<!-- END Sign In Form -->
+
+				</div>
+				<div class="md-modal md-effect-13" id="modal-13">
+			<div class="md-content">
+				<h3>数据展示登录</h3>
+				<div>
+					<p>统计数据来源于各个科研院所的问卷调查，如有疑问，请联系管理员！</p>
+					<form action="/hqep/login/adminin" method="post" onsubmit = "return admincheck();">
+						<div class="fh5co-form animate-box form-group">
+							<input type="text" class="form-control" id="adminname" name="adminname" placeholder="your name" autocomplete="off" value=""/>
+						    <input type="text" class="form-control" id="adminpwd" name="adminpwd" placeholder="your key" autocomplete="off" value=""/>
+						</div>
+						<div style="text-align: center;">
+							<button type="button" class="md-close btn btn-primary" style="display: inline;">关闭</button>
+							<button type="submit" class="btn btn-primary" style="display: inline;">登录</button>
+						</div>
+						</form>
+				</div>
+			</div>
+		</div>
+			</div>
+			<div class="row" style="padding-top: 60px; clear: both;">
+				<div class="col-md-12 text-center"><p><small>&copy; All Rights Reserved. More Templates</small></p></div>
+			</div>
+		</div>
+	
+	<!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	<!-- Placeholder -->
+	<script src="../js/jquery.placeholder.min.js"></script>
+	<!-- Waypoints -->
+	<script src="../js/jquery.waypoints.min.js"></script>
+	<!-- Main JS -->
+	<script src="../js/main.js"></script>
+	<script>
+			// this is important for IEs
+			var polyfilter_scriptpath = '/js/';
+		</script>
+	 <script src="../js/index.js"></script>
+	</body>
+	<script>
+	function selectM(obj)
+	{
+		if(obj.value!="")
+			{
+			  if(obj.value=="高校")
+				  {
+				  $("select[name='subkind']").html(
+					"<option value=\"教育部直属\">教育部直属</option><option value=\"省属\">省属</option><option value=\"地市直属\">地市直属</option><option value=\"民办\">民办</option>");
+				  }
+			  if(obj.value=="科研院所")
+			  {
+			  $("select[name='subkind']").html(
+				"<option value=\"国家级\">国家级</option><option value=\"省属\">省属</option><option value=\"地市\">地市</option><option value=\"自办科研院所\">自办科研院所</option>");
+			  }
+			  if(obj.value=="企业")
+			  {
+			  $("select[name='subkind']").html(
+				"<option value=\"国企\">国企</option><option value=\"民营企业\">民营企业(科技型民营企业)</option>");
+			  }
+			}
+			
+	}
+	function check()
+	{
+		var v_kind  = $("#kind").val();
+		var v_subkind  =$("#subkind").val();
+		var v_dept  =   $("#dept").val();
+		var v_name = $("#name").val();
+		if(v_kind=="")
+			{
+			alert("请填写完整");
+			return false;
+			}
+		if(v_subkind=="")
+		{
+		alert("请填写完整");
+		return false;
+		}
+		if(v_dept=="")
+		{
+		alert("请填写完整");
+		return false;
+		}
+		if(v_name=="")
+		{
+		alert("请填写完整");
+		return false;
+		}
+	}
+	function admincheck()
+	{
+		var v_adminname  = $("#adminname").val();
+		var v_adminpwd  =$("#adminpwd").val();
+		
+		if(v_adminname=="")
+			{
+			alert("请填写完整");
+			return false;
+			}
+		if(v_adminpwd=="")
+		{
+		alert("请填写完整");
+		return false;
+		}
+	}
+	</script>
+</html>
+

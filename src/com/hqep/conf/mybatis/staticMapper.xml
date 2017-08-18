@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hqep.dao.staticDao">
+	<resultMap id="kindMap" type="com.hqep.model.kindModel">
+		<result column="KIND" jdbcType="VARCHAR" property="kind" />
+		<result column="NUM" jdbcType="NUMERIC" property="num" />
+	</resultMap>
+	<resultMap id="subkindMap" type="com.hqep.model.subkindModel">
+		<result column="SUBKIND" jdbcType="VARCHAR" property="subkind" />
+		<result column="NUM" jdbcType="NUMERIC" property="num" />
+	</resultMap>
+	<resultMap id="xlMap" type="com.hqep.model.xlModel">
+		<result column="XL" jdbcType="VARCHAR" property="xl" />
+		<result column="NUM" jdbcType="NUMERIC" property="num" />
+	</resultMap>
+	<resultMap id="zcMap" type="com.hqep.model.zcModel">
+		<result column="ZC" jdbcType="VARCHAR" property="zc" />
+		<result column="NUM" jdbcType="NUMERIC" property="num" />
+	</resultMap>
+	<resultMap id="sexMap" type="com.hqep.model.sexModel">
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="NUMS" jdbcType="NUMERIC" property="nums" />
+	</resultMap>
+	<resultMap id="questionMap" type="com.hqep.model.questionModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="QUESTION" jdbcType="VARCHAR" property="question" />
+		<result column="PX" jdbcType="VARCHAR" property="px" />
+		<result column="TYPE" jdbcType="VARCHAR" property="type" />
+	</resultMap>
+	<resultMap id="ansMap" type="com.hqep.model.answerModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="QID" jdbcType="VARCHAR" property="qid" />
+		<result column="ANSWERID" jdbcType="VARCHAR" property="answerid" />
+		<result column="ANSWERCONTENT" jdbcType="VARCHAR" property="answercontent" />
+		<result column="USERID" jdbcType="VARCHAR" property="userid" />
+		<result column="TYPE" jdbcType="VARCHAR" property="type" />
+	</resultMap>
+	<resultMap id="optionMap" type="com.hqep.model.optionModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="QID" jdbcType="VARCHAR" property="qid" />
+		<result column="QCONTENT" jdbcType="VARCHAR" property="qcontent" />
+		<result column="ORDERNUM" jdbcType="VARCHAR" property="px" />
+	</resultMap>
+	<resultMap id="ansoptiondetailMap" type="com.hqep.model.ansoptiondetailModel">
+		<result column="KIND" jdbcType="VARCHAR" property="kind" />
+		<result column="SUBKIND" jdbcType="VARCHAR" property="subkind" />
+		<result column="NUMS" jdbcType="VARCHAR" property="nums" />
+	</resultMap>
+  <select id="kindzb" resultMap="kindMap">
+       SELECT KIND,count(*) as NUM from ASK_USER group by KIND
+  </select>
+   <select id="subkindzb" resultMap="subkindMap" parameterType="String">
+       select SUBKIND,count(*) as NUM from ASK_USER  where  KIND = #{kind,jdbcType=VARCHAR}  group by SUBKIND
+  </select>
+  <select id="xlzb" resultMap="xlMap">
+       SELECT XL,count(*) as NUM from ASK_USER group by XL
+  </select>
+  <select id="zczb" resultMap="zcMap">
+       SELECT ZC,count(*) as NUM from ASK_USER group by ZC
+  </select>
+   <select id="getnums" resultType="Integer" >
+       select count(*) as NUM from ASK_USER
+  </select>
+   <select id="getquestion" resultMap="questionMap" >
+       select  * from ASK_QUESTION where TYPE=1 order by to_number(px)
+  </select>
+  <select id="getansnum" resultType="Integer"  >
+       select  count(*) as NUM from ASK_ANSWER where QID = #{qid,jdbcType=VARCHAR} and type=1 and ANSWERID =#{answerid,jdbcType=VARCHAR}
+  </select>
+  <select id="getdescript" resultMap="optionMap">
+       select  * from ASK_OPTION  where QID =#{qid,jdbcType=VARCHAR} order by ordernum
+  </select>
+  <select id="getsex" resultType="Integer" parameterType="String">
+       select  count(*) from ASK_USER  where SEX =#{sex,jdbcType=VARCHAR} 
+  </select>
+  <select id="getage" resultType="Integer" parameterType="Integer">
+       select sum(count(*)) from ASK_USER group by age  having age  &lt;   #{age,jdbcType=NUMERIC} 
+  </select>
+  <select id="getansoption" resultMap="optionMap" parameterType="String">
+       select * from ASK_OPTION where qid = #{qid,jdbcType=VARCHAR} order by ordernum
+  </select>
+  <select id="getansoptiondetail" resultMap="ansoptiondetailMap" parameterType="String">
+       select d.kind,d.subkind,(select count(*) from ASK_ANSWER a,ask_user b  where a.userid=b.id and b.kind=d.kind and b.subkind=d.subkind and a.answerid = 'A' and a.qid =#{qid,jdbcType=VARCHAR} ) as anum,(select count(*) from ASK_ANSWER a,ask_user b  where a.userid=b.id and b.kind=d.kind and b.subkind=d.subkind and a.answerid = 'B' and a.qid =#{qid,jdbcType=VARCHAR} ) as bnum,(select count(*) from ASK_ANSWER a,ask_user b  where a.userid=b.id and b.kind=d.kind and b.subkind=d.subkind and a.answerid = 'C' and a.qid =#{qid,jdbcType=VARCHAR} ) as cnum,(select count(*) from ASK_ANSWER a,ask_user b  where a.userid=b.id and b.kind=d.kind and b.subkind=d.subkind and a.answerid = 'D' and a.qid =#{qid,jdbcType=VARCHAR} ) as dnum from ASK_ANSWER c ,ask_user d where c.userid =d.id and c.qid=#{qid,jdbcType=VARCHAR}  group by  d.kind,d.subkind   order by d.kind,d.subkind 
+  </select>
+  <select id="getanskind" resultMap="kindMap" parameterType="com.hqep.model.answerModel">
+       select count(*) as num,kind from ASK_ANSWER a,ask_user b where a.userid=b.id and  a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1' group by kind
+  </select>
+  <select id="getanssubkind" resultMap="subkindMap" parameterType="com.hqep.model.answerModel">
+       select count(*) as num,subkind from ASK_ANSWER a,ask_user b where a.userid=b.id and b.kind=#{answercontent,jdbcType=VARCHAR} and a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1' group by subkind
+  </select>
+  <select id="getanssex" resultMap="sexMap" parameterType="com.hqep.model.answerModel">
+       select count(*) as nums,sex from ASK_ANSWER a,ask_user b where a.userid=b.id  and a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1' group by sex
+  </select>
+  <select id="getansxl" resultMap="xlMap" parameterType="com.hqep.model.answerModel">
+       select count(*) as num,xl from ASK_ANSWER a,ask_user b where a.userid=b.id  and a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1' group by xl
+  </select>
+  <select id="getanszc" resultMap="zcMap" parameterType="com.hqep.model.answerModel">
+       select count(*) as num,zc from ASK_ANSWER a,ask_user b where a.userid=b.id  and a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1' group by zc
+  </select>
+  <select id="getansage" resultType="Integer" parameterType="com.hqep.model.answerModel">
+        select decode(sum(count(*)),null,0,sum(count(*))) as num  from ASK_ANSWER a,ask_user b where a.userid=b.id  and a.qid=#{qid,jdbcType=VARCHAR} and a.answerid=#{answerid,jdbcType=VARCHAR} and a.type='1'  group by age  having age  &lt; to_number(#{userid,jdbcType=VARCHAR})
+  </select>
+</mapper>

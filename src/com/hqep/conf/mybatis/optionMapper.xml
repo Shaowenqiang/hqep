@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hqep.dao.optionDao">
+	<resultMap id="BaseResultMap" type="com.hqep.model.optionModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="QID" jdbcType="VARCHAR" property="qid" />
+		<result column="QCONTENT" jdbcType="VARCHAR" property="qcontent" />
+		<result column="ORDERNUM" jdbcType="VARCHAR" property="px" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID
+		,
+		QID
+		,
+		QCONTENT
+		,
+		ORDERNUM
+  </sql>
+    <insert id="save" parameterType="com.hqep.model.optionModel">
+    insert into ask_option (
+    	<include refid="Base_Column_List"></include> 
+    ) 
+    values (
+			#{id,jdbcType=VARCHAR},
+			#{qid,jdbcType=VARCHAR},
+			#{qcontent,jdbcType=VARCHAR},
+			#{px,jdbcType=VARCHAR}
+    )
+  </insert>
+</mapper>

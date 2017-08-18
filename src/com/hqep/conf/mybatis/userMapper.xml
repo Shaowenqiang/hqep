@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hqep.dao.loginDao">
+	<resultMap id="BaseResultMap" type="com.hqep.model.userModel">
+		<result column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="DEPT" jdbcType="VARCHAR" property="dept" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="KIND" jdbcType="VARCHAR" property="kind" />
+		<result column="SUBKIND" jdbcType="VARCHAR" property="subkind" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="XL" jdbcType="VARCHAR" property="xl" />
+		<result column="ZC" jdbcType="VARCHAR" property="zc" />
+		<result column="DUTY" jdbcType="VARCHAR" property="duty" />
+		<result column="AGE" jdbcType="NUMERIC" property="age" />
+		<result column="ISON" jdbcType="VARCHAR" property="ison" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID
+		,
+		DEPT
+		,
+		NAME
+		,
+		KIND
+		,
+		SUBKIND
+		,
+		SEX
+		,
+		XL
+		,
+		ZC
+		,
+		DUTY
+		,
+		AGE
+		,
+		ISON
+  </sql>
+    <select id="existuser" parameterType="com.hqep.model.userModel" resultType="Integer">
+       select count(*) from ASK_USER
+         where 
+             DEPT=#{dept,jdbcType=VARCHAR}
+			and NAME = #{name,jdbcType=VARCHAR}
+			and KIND = #{kind,jdbcType=VARCHAR}
+			and SUBKIND = #{subkind,jdbcType=VARCHAR}
+			and SEX =  #{sex,jdbcType=VARCHAR}
+			and XL = #{xl,jdbcType=VARCHAR}
+			and ZC = #{zc,jdbcType=VARCHAR}
+			and DUTY = #{duty,jdbcType=VARCHAR}
+			and AGE = #{age,jdbcType=NUMERIC}
+    
+  </select>
+   <insert id="save" parameterType="com.hqep.model.userModel">
+    insert into ASK_USER (
+    	<include refid="Base_Column_List"></include> 
+    ) 
+    values (
+			sys_guid(),
+			#{dept,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{kind,jdbcType=VARCHAR},
+			#{subkind,jdbcType=VARCHAR},
+			#{sex,jdbcType=VARCHAR},
+			#{xl,jdbcType=VARCHAR},
+			#{zc,jdbcType=VARCHAR},
+			#{duty,jdbcType=VARCHAR},
+			#{age,jdbcType=NUMERIC},
+		   '1'	
+    )
+  </insert>
+  <select id="selectuser" parameterType="com.hqep.model.userModel" resultMap="BaseResultMap">
+       select <include refid="Base_Column_List"></include>  from ASK_USER
+         where 
+             DEPT=#{dept,jdbcType=VARCHAR}
+			and NAME = #{name,jdbcType=VARCHAR}
+			and KIND = #{kind,jdbcType=VARCHAR}
+			and SUBKIND = #{subkind,jdbcType=VARCHAR}
+			and SEX =  #{sex,jdbcType=VARCHAR}
+			and XL = #{xl,jdbcType=VARCHAR}
+			and ZC = #{zc,jdbcType=VARCHAR}
+			and DUTY = #{duty,jdbcType=VARCHAR}
+			and AGE = #{age,jdbcType=NUMERIC}
+    
+  </select>
+  <update id="updateison" parameterType="String">
+     update ASK_USER set ison  ='1' where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateisoff" parameterType="String">
+     update ASK_USER set ison  ='0' where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
